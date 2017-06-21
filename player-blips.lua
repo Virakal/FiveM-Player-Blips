@@ -17,25 +17,17 @@ Citizen.CreateThread(function()
 	while true do
 		Wait(1)
 
-		for _, blip in ipairs(blips) do
-			if blip and DoesBlipExist(blip) then
-				RemoveBlip(blip)
-			end
-		end
-
-		blips = {}
-
 		local players = GetPlayers()
 
 		for _, player in ipairs(players) do
-			if player ~= currentPlayer then
+			if player ~= currentPlayer and not blips[player] then
 				local playerPed = GetPlayerPed(player)
-				local coords = GetEntityCoords(playerPed)
-				local new_blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+				local new_blip = AddBlipForEntity(playerPed)
+
 				SetBlipNameToPlayerName(new_blip, player)
 				SetBlipColour(new_blip, 0)
 
-				table.insert(blips, new_blip)
+				blips[player] = new_blip
 			end
 		end
 	end
