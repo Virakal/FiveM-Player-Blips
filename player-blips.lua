@@ -32,6 +32,7 @@ Citizen.CreateThread(function()
 				local playerPed = GetPlayerPed(player)
 				local coords = GetEntityCoords(playerPed)
 				local new_blip = AddBlipForCoord(coords.x, coords.y, coords.z)
+				SetBlipNameToPlayerName(new_blip, player)
 
 				table.insert(blips, new_blip)
 			end
