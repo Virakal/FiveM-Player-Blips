@@ -50,7 +50,9 @@ Citizen.CreateThread(function()
 				SetBlipCategory(new_blip, 2)
 
 				-- Set the blip to shrink when not on the minimap
-				Citizen.InvokeNative(0x2B6D467DAB714E8D, new_blip, true)
+				-- Citizen.InvokeNative(0x2B6D467DAB714E8D, new_blip, true)
+
+				SetBlipScale(new_blip, 0.9)
 
 				-- Record blip so we don't keep recreating it
 				blips[player] = new_blip
