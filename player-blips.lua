@@ -16,7 +16,7 @@ Citizen.CreateThread(function()
 	local i = 0
 
 	while true do
-		Wait(1)
+		Wait(100)
 
 		i = i + 1
 
@@ -35,16 +35,19 @@ Citizen.CreateThread(function()
 
 		local players = GetPlayers()
 
-		for _, player in ipairs(players) do
-			if player ~= currentPlayer and not blips[player] then
+		for player = 0, 64 do
+			if player ~= currentPlayer and NetworkIsPlayerActive(player) then
 				local playerPed = GetPlayerPed(player)
+				local playerName = GetPlayerName(player)
 				local new_blip = AddBlipForEntity(playerPed)
+
+				RemoveBlip(blips[player])
 
 				-- Add player name to blip
 				SetBlipNameToPlayerName(new_blip, player)
 
 				-- Make blip white
-				SetBlipColour(new_blip, 0)
+				SetBlipColour(new_blip, player + 10)
 
 				-- Enable text on blip
 				SetBlipCategory(new_blip, 2)
@@ -53,6 +56,8 @@ Citizen.CreateThread(function()
 				-- Citizen.InvokeNative(0x2B6D467DAB714E8D, new_blip, true)
 
 				SetBlipScale(new_blip, 0.9)
+
+				Citizen.InvokeNative(0xBFEFE3321A3F5015, playerPed, playerName, false, false, '', false)
 
 				-- Record blip so we don't keep recreating it
 				blips[player] = new_blip
