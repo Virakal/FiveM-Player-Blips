@@ -27,6 +27,8 @@ Citizen.CreateThread(function()
 
 				SetBlipNameToPlayerName(new_blip, player)
 				SetBlipColour(new_blip, 0)
+				-- Enable text on blip
+				SetBlipCategory(new_blip, 2)
 				-- Set the blip to shrink when not on the minimap
 				Citizen.InvokeNative(0x2B6D467DAB714E8D, new_blip, true)
 
