@@ -18,6 +18,7 @@ Citizen.CreateThread(function()
 		Wait(1)
 
 		local players = GetPlayers()
+		local i = 0
 
 		for _, player in ipairs(players) do
 			if player ~= currentPlayer and not blips[player] then
@@ -26,6 +27,8 @@ Citizen.CreateThread(function()
 
 				SetBlipNameToPlayerName(new_blip, player)
 				SetBlipColour(new_blip, 0)
+				-- Set the blip to shrink when not on the minimap
+				Citizen.InvokeNative(0x2B6D467DAB714E8D, new_blip, true)
 
 				blips[player] = new_blip
 			end
