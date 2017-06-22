@@ -13,12 +13,27 @@ end
 Citizen.CreateThread(function()
 	local blips = {}
 	local currentPlayer = PlayerId()
+	local i = 0
 
 	while true do
 		Wait(1)
 
+		i = i + 1
+
+		if i >= 30000 then
+			-- Every n frames, recreate all blips in case something screwed up
+			i = 0
+
+			for _, blip in ipairs(blips) do
+				if blip then
+					RemoveBlip(blip)
+				end
+			end
+
+			blips = {}
+		end
+
 		local players = GetPlayers()
-		local i = 0
 
 		for _, player in ipairs(players) do
 			if player ~= currentPlayer and not blips[player] then
